@@ -52,6 +52,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Dyadic.InnerProduct
 
             Assert.AreEqual(expected, resultUni);
             Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
+
+            AType resultApl = this.engineApl.Execute<AType>("y +.\u00AB x", scope);
+
+            Assert.AreEqual(expected, resultApl);
+            Assert.AreEqual(InfoResult.OK, resultApl.CompareInfos(expected));
         }
 
         [TestCategory("DLR"), TestCategory("Dyadic"), TestCategory("Rank"), TestMethod]
