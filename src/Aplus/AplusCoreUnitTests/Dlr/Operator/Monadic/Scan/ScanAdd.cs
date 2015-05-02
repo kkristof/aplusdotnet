@@ -28,6 +28,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Monadic.Scan
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+
+            AType resultUni = this.engineUni.Execute<AType>(@"+\ 1 3 -5 2 6");
+
+            Assert.AreEqual(expected, resultUni);
+            Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ScanAdd"), TestMethod]

@@ -24,6 +24,10 @@ namespace AplusCoreUnitTests.Dlr.ControlFlow
             AType result = this.engine.Execute<AType>("do { 100 }");
 
             Assert.AreEqual<AType>(expected, result);
+
+            AType resultUni = this.engineUni.Execute<AType>("do { 100 }");
+
+            Assert.AreEqual<AType>(expected, resultUni);
         }
 
         [TestCategory("DLR"), TestCategory("ControlFlow"), TestCategory("MonadicDo"), TestMethod]

@@ -19,6 +19,9 @@ namespace AplusCoreUnitTests.Dlr.ControlFlow
             AType value = this.engine.Execute<AType>("if 1 'ok'");
 
             Assert.AreEqual<AType>(expected, value, "Incorrect value returned");
+
+            AType valueUni = this.engineUni.Execute<AType>("if 1 'ok'");
+            Assert.AreEqual<AType>(expected, valueUni, "Incorrect value returned");
         }
 
         [TestCategory("DLR"), TestCategory("ControlFlow"), TestCategory("If"), TestMethod]

@@ -49,6 +49,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Monadic.Reduction
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+
+            AType resultUni = this.engineUni.Execute<AType>("&/ 0 0 1 1 0 0");
+
+            Assert.AreEqual(expected, resultUni);
+            Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ReduceAnd"), TestMethod]

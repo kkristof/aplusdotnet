@@ -27,6 +27,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Monadic.Scan
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+
+            AType resultUni = this.engineUni.Execute<AType>(@"M.+\ 4.5 3 7 3.2 1.7 8");
+
+            Assert.AreEqual(expected, resultUni);
+            Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ScanMax"), TestMethod]

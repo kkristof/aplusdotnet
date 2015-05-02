@@ -19,6 +19,10 @@ namespace AplusCoreUnitTests.Dlr.ControlFlow
             AType result = this.engine.Execute<AType>("case (1) { 2; 'hello'; 1; 'found it' }");
 
             Assert.AreEqual<AType>(expected, result, "Incorrect result produced");
+
+            AType resultUni = this.engineUni.Execute<AType>("case (1) { 2; 'hello'; 1; 'found it' }");
+
+            Assert.AreEqual<AType>(expected, resultUni, "Incorrect result produced");
         }
 
         [TestCategory("DLR"), TestCategory("ControlFlow"), TestCategory("Case"), TestMethod]

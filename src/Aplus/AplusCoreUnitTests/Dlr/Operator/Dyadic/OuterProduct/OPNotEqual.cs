@@ -21,6 +21,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Dyadic.OuterProduct
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+
+            AType resultUni = this.engineUni.Execute<AType>("y O.!= x", scope);
+
+            Assert.AreEqual(expected, resultUni);
+            Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
         }
     }
 }

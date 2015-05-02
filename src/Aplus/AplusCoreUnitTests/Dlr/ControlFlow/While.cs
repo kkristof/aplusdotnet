@@ -27,6 +27,8 @@ namespace AplusCoreUnitTests.Dlr.ControlFlow
             Assert.AreEqual<AType>(expected, scope.GetVariable<AType>(".i"),
                 "Variable not created outside the block");
 
+            AType resultUni = this.engineUni.Execute<AType>("while a { a:=0; i:=14 }", scope);
+            Assert.AreEqual<AType>(expected, result, "Returned value is invalid");
         }
 
         [TestCategory("DLR"), TestCategory("ControlFlow"), TestCategory("While"), TestMethod]

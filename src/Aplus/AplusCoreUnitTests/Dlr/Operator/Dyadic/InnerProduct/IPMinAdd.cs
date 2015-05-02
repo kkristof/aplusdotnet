@@ -44,6 +44,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Dyadic.InnerProduct
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+
+            AType resultUni = this.engineUni.Execute<AType>("y P.- x", scope);
+
+            Assert.AreEqual(expected, resultUni);
+            Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
         }
 
         [TestMethod, TestCategory("Inner Product"), TestCategory("IP Min Add")]
