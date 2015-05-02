@@ -35,6 +35,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Monadic.Scan
 
             Assert.AreEqual(expected, resultUni);
             Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
+
+            AType resultApl = this.engineApl.Execute<AType>(@"^\ 1 1 1 0 1 1 0 1");
+
+            Assert.AreEqual(expected, resultApl);
+            Assert.AreEqual(InfoResult.OK, resultApl.CompareInfos(expected));
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ScanAnd"), TestMethod]

@@ -24,6 +24,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Monadic.Reduction
 
             Assert.AreEqual(expected, resultUni);
             Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
+
+            AType resultApl = this.engineApl.Execute<AType>("\u00D3/ 4 5 65 3 2 122");
+
+            Assert.AreEqual(expected, resultApl);
+            Assert.AreEqual(InfoResult.OK, resultApl.CompareInfos(expected));
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ReduceMax"), TestMethod]
