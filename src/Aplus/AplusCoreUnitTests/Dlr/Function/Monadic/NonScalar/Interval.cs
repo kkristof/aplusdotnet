@@ -51,6 +51,20 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Interval"), TestMethod]
+        public void IntervalIntegerApl()
+        {
+            AType expected = AArray.Create(ATypes.AInteger,
+                AInteger.Create(0), AInteger.Create(1),
+                AInteger.Create(2), AInteger.Create(3),
+                AInteger.Create(4), AInteger.Create(5)
+            );
+            AType result = this.engineApl.Execute<AType>("\u00C9 6");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Interval"), TestMethod]
         [ExpectedException(typeof(Error.Type))]
         public void IntervalFloat()
         {

@@ -28,6 +28,14 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Identity"), TestMethod]
+        public void IdentityNullApl()
+        {
+            AType result = this.engineApl.Execute<AType>("\u002B ()");
+
+            Assert.AreEqual<ATypes>(ATypes.ANull, result.Type, "Incorrect type");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Identity"), TestMethod]
         public void IdentityChar()
         {
             AType expected = Helpers.BuildString("abc");

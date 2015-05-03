@@ -85,6 +85,31 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Disclose"), TestMethod]
+        public void DiscloseNestedUniformIntegerVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AArray.Create(
+                    ATypes.AInteger,
+                    AInteger.Create(4),
+                    AInteger.Create(2),
+                    AInteger.Create(1)
+                ),
+                AArray.Create(
+                    ATypes.AInteger,
+                    AInteger.Create(4),
+                    AInteger.Create(5),
+                    AInteger.Create(6)
+                )
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u003E(4 2 1; 4 5 6)");
+
+            Assert.AreEqual<AType>(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Disclose"), TestMethod]
         public void DiscloseNestedUniformFloatVector1()
         {
             AType expected = AArray.Create(

@@ -37,6 +37,18 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Execute"), TestMethod]
+        public void GlobalAssignExecuteApl()
+        {
+            ScriptScope scope = this.engine.CreateScope();
+            AType expected = AInteger.Create(10);
+            AType result = this.engineApl.Execute<AType>("\u00E2 'b\u00FB10'", scope);
+
+            Assert.IsTrue(scope.ContainsVariable(".b"), "No variable found in global scope");
+            Assert.AreEqual<AType>(expected, scope.GetVariable<AType>(".b"), "Incorrect result in global variable");
+            Assert.AreEqual<AType>(expected, result, "Incorrect result returned");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Execute"), TestMethod]
         public void ExecuteReturn()
         {
             ScriptScope scope = this.engine.CreateScope();

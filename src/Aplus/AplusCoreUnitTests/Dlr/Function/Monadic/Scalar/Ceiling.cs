@@ -57,6 +57,29 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Ceiling"), TestMethod]
+        public void CeilingVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(10),
+                AInteger.Create(11),
+                AInteger.Create(11),
+                AInteger.Create(11),
+                AInteger.Create(-9),
+                AInteger.Create(-9),
+                AInteger.Create(-9),
+                AInteger.Create(-9),
+                AInteger.Create(1),
+                AInteger.Create(3)
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00D3 10 10.2 10.5 10.98 \u00A29 \u00A29.2 \u00A29.5 \u00A29.98 0.1 3.000000000000000000000002");
+
+            Assert.AreEqual(expected.Type, result.Type, "Type mismatch");
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Ceiling"), TestMethod]
         public void CeilingNull()
         {
             AType result = this.engine.Execute<AType>("max ()");

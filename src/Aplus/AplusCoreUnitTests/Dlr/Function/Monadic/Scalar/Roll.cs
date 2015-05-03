@@ -38,6 +38,15 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Roll"), TestMethod]
+        public void RollNumbersApl()
+        {
+            AType result = this.engineApl.Execute<AType>("? 3 4");
+
+            Assert.AreEqual<ATypes>(ATypes.AInteger, result.Type, "Incorrect type");
+            Assert.AreEqual(2, result.Length, "Incorrect vector length");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Roll"), TestMethod]
         public void RollNumbersTolerablyWholeArgument()
         {
             AType result = this.engine.Execute<AType>("rand 3.00000000000000000000000000000001 4");

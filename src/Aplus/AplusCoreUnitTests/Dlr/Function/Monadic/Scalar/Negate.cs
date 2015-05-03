@@ -56,6 +56,17 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Negate"), TestMethod]
+        public void NegateVector1Apl()
+        {
+            AType expected = AArray.Create(ATypes.AInteger,
+                AInteger.Create(-1), AInteger.Create(-2), AInteger.Create(3)
+            );
+            AType result = this.engineApl.Execute<AType>(" \u002D 1 2 \u00A23");
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Negate"), TestMethod]
         public void NegateVector2()
         {
             AType expected = AArray.Create(

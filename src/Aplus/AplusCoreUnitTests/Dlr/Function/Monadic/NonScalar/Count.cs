@@ -31,6 +31,16 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Count"), TestMethod]
+        public void CountScalarIntegerApl()
+        {
+            AType expected = AInteger.Create(1);
+            AType result = this.engineApl.Execute<AType>("\u0023 4");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Count"), TestMethod]
         public void CountScalarFloat()
         {
             AType expected = AInteger.Create(1);

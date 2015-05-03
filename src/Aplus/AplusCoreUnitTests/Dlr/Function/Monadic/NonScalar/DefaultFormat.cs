@@ -34,6 +34,17 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("DefaultFormat"), TestMethod]
+        public void DefaultFormatIntegerApl()
+        {
+            AType expected = Helpers.BuildString(" 435");
+
+            AType result = this.engineApl.Execute<AType>("\u00EE 435");
+
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("DefaultFormat"), TestMethod]
         public void DefaultFormatIntegerList()
         {
             AType expected = Helpers.BuildString(" 42 23 65 353");

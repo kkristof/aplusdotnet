@@ -43,6 +43,21 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ItemRavel"), TestMethod]
+        public void ItemRavelIntegerVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(0),
+                AInteger.Create(1),
+                AInteger.Create(2),
+                AInteger.Create(3)
+            );
+            AType result = this.engineApl.Execute<AType>("\u0021 \u00C9 2 2");
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ItemRavel"), TestMethod]
         public void ItemRavelIntegerMatrixWithFrame()
         {
             AType expected = AArray.Create(

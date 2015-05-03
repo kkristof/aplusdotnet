@@ -45,6 +45,17 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Enclose"), TestMethod]
+        public void SimpleEncloseApl()
+        {
+            AType expected = ABox.Create(AInteger.Create(1));
+
+            AType result = this.engineApl.Execute<AType>("\u003C 1");
+
+            Assert.AreEqual<AType>(expected, result, "Incorrect boxed value was created");
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Enclose"), TestMethod]
         public void VectorEnclose()
         {
             AType expected = ABox.Create(AArray.Create(ATypes.AInteger, AInteger.Create(1), AInteger.Create(2)));

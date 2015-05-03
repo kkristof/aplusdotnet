@@ -42,6 +42,22 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Dyadic"), TestCategory("Exponential"), TestMethod]
+        public void ExponentialIntegerApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AFloat,
+                AFloat.Create(Math.Exp(1)),
+                AFloat.Create(Math.Exp(2)),
+                AFloat.Create(Math.Exp(3)),
+                AFloat.Create(Math.Exp(4)),
+                AFloat.Create(Math.Exp(5))
+            );
+            AType result = this.engineApl.Execute<AType>("\u002A 1 2 3 4 5");
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Dyadic"), TestCategory("Exponential"), TestMethod]
         public void ExponentialVector()
         {
             AType expected = AArray.Create(

@@ -68,6 +68,23 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Not"), TestMethod]
+        public void NotVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(0),
+                AInteger.Create(1),
+                AInteger.Create(0),
+                AInteger.Create(0),
+                AInteger.Create(0)
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u007E \u00A21 0 1 2 3");
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Not"), TestMethod]
         public void NotRestrictedWholeVector()
         {
             AType expected = AArray.Create(

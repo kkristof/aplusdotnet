@@ -33,6 +33,18 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("AbsoluteValue"), TestMethod]
+        public void AbsoluteValueVectorApl()
+        {
+            AType expected = AArray.Create(ATypes.AFloat,
+                AFloat.Create(3), AFloat.Create(6), AFloat.Create(2147483648)
+            );
+            AType result = this.engineApl.Execute<AType>("| \u00A23 6 \u00A22147483648");
+
+            Assert.AreEqual(expected, result);
+        }
+
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("AbsoluteValue"), TestMethod]
         public void AbsoluteValueFloat()
         {
             AType expected = AFloat.Create(3.1);

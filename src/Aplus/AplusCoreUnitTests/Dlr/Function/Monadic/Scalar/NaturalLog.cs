@@ -39,6 +39,20 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.Scalar
         }
 
         [TestCategory("DLR"), TestCategory("Dyadic"), TestCategory("NaturalLog"), TestMethod]
+        public void NaturalLogIntegerApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AFloat,
+                AFloat.Create(Math.Log(2)),
+                AFloat.Create(Math.Log(5)),
+                AFloat.Create(Math.Log(25))
+            );
+            AType result = this.engineApl.Execute<AType>("\u00F0 2 5 25");
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Dyadic"), TestCategory("NaturalLog"), TestMethod]
         public void NaturalLogVector()
         {
             AType expected = AArray.Create(
