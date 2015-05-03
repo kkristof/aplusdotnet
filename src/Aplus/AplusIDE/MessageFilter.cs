@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace AplusIDE
 {
-    class MessageFilter
+    public class MessageFilter
     {
         /// <summary>
         /// Converts LowerCase ASCII Characters to APL Character codes.

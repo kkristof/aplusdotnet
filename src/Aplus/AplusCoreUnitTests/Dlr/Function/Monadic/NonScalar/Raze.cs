@@ -24,6 +24,17 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
+        public void RazeStrandWithCharacterConstantApl()
+        {
+            AType expected = Helpers.BuildString("abcdef");
+
+            AType result = this.engineApl.Execute<AType>("\u00D8 ('ab';'cde';'f')");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
         public void RazeStrandWithCharacterConstantUni()
         {
             AType expected = Helpers.BuildString("abcdef");
@@ -52,6 +63,23 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
+        public void RazeStrandWithMatrixApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AArray.Create(ATypes.AInteger, AInteger.Create(0), AInteger.Create(1), AInteger.Create(2)),
+                AArray.Create(ATypes.AInteger, AInteger.Create(3), AInteger.Create(4), AInteger.Create(5)),
+                AArray.Create(ATypes.AInteger, AInteger.Create(0), AInteger.Create(10), AInteger.Create(20)),
+                AArray.Create(ATypes.AInteger, AInteger.Create(30), AInteger.Create(40), AInteger.Create(50))
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00D8 (\u00C9 2 3;10 \u00AB \u00C9 2 3)");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
         public void RazeOneElementNestedVector()
         {
             AType expected = AArray.Create(
@@ -60,6 +88,20 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
             );
 
             AType result = this.engine.Execute<AType>("pick 1 rho < `test");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
+        public void RazeOneElementNestedVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.ASymbol,
+                ASymbol.Create("test")
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00D8 1 \u00D2 \u003C `test");
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
@@ -84,11 +126,40 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
+        public void RazeMixedIntegerAndFloatApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AFloat,
+                AFloat.Create(3),
+                AFloat.Create(2),
+                AFloat.Create(4.5),
+                AFloat.Create(7),
+                AFloat.Create(9)
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00D8 (3 2; 4.5; 7 9)");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
         public void RazeStrandWithNull()
         {
             AType expected = Helpers.BuildString("test");
 
             AType result = this.engine.Execute<AType>("pick ('te';;'s';;;'t')");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
+        public void RazeStrandWithNullApl()
+        {
+            AType expected = Helpers.BuildString("test");
+
+            AType result = this.engineApl.Execute<AType>("\u00D8 ('te';;'s';;;'t')");
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
@@ -111,11 +182,38 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
+        public void RazeStrandWithFloatNullAndIntegerListApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(3),
+                AInteger.Create(5),
+                AInteger.Create(7)
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00D8 (0 \u00D2 3.5; 3 5; 7)");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
         public void RazeStrandWithNulls()
         {
             AType expected = AArray.Create(ATypes.AFloat);
 
             AType result = this.engine.Execute<AType>("pick (0 rho 3.5; ; ; ; ;)");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Raze"), TestMethod]
+        public void RazeStrandWithNullsApl()
+        {
+            AType expected = AArray.Create(ATypes.AFloat);
+
+            AType result = this.engineApl.Execute<AType>("\u00D8 (0 \u00D2 3.5; ; ; ; ;)");
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));

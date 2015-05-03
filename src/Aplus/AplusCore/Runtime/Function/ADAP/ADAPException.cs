@@ -5,13 +5,13 @@ using System.Text;
 
 namespace AplusCore.Runtime.Function.ADAP
 {
-    internal enum ADAPExceptionType
+    public enum ADAPExceptionType
     {
         Import,
         Export
     }
 
-    internal class ADAPException : Exception
+    public class ADAPException : Exception
     {
         #region Variables
 
@@ -21,25 +21,25 @@ namespace AplusCore.Runtime.Function.ADAP
 
         #region Properties
 
-        internal ADAPExceptionType Type { get { return this.type; } }
+        public ADAPExceptionType Type { get { return this.type; } }
 
         #endregion
 
         #region Constructors
 
-        internal ADAPException(ADAPExceptionType exceptionType)
+        public ADAPException(ADAPExceptionType exceptionType)
             : base()
         {
             this.type = exceptionType;
         }
 
-        internal ADAPException(ADAPExceptionType exceptionType, string message)
+        public ADAPException(ADAPExceptionType exceptionType, string message)
             : base(message)
         {
             this.type = exceptionType;
         }
 
-        internal ADAPException(ADAPExceptionType exceptionType, string message, Exception innerEx)
+        public ADAPException(ADAPExceptionType exceptionType, string message, Exception innerEx)
             : base(message, innerEx)
         {
             this.type = exceptionType;

@@ -98,6 +98,17 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Rake"), TestMethod]
+        public void RakeNullApl()
+        {
+            AType expected = Utils.ANull();
+
+            AType result = this.engineApl.Execute<AType>("\u00C5 ()");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Rake"), TestMethod]
         public void RakeStrandWithUDF1()
         {
             ScriptScope scriptscope = this.engine.CreateScope();
@@ -111,6 +122,25 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
             );
 
             AType result = this.engine.Execute<AType>("in (a;5)", scriptscope);
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Rake"), TestMethod]
+        public void RakeStrandWithUDF1Apl()
+        {
+            ScriptScope scriptscope = this.engine.CreateScope();
+            scriptscope.SetVariable("a", TestFunction);
+
+            AType expected = Helpers.BuildStrand(
+                new AType[]{
+                    AInteger.Create(5),
+                    TestFunction
+                }
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00C5 (a;5)", scriptscope);
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
@@ -164,6 +194,30 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Rake"), TestMethod]
+        public void RakeStrandDepth3Apl()
+        {
+            ScriptScope scope = this.engine.CreateScope();
+            AType f = this.engineApl.Execute<AType>("f \u00FB \u003C{+}", scope);
+            AType g = this.engineApl.Execute<AType>("g \u00FB {-}", scope);
+
+            AType expected = AArray.Create(
+                ATypes.ASymbol,
+                ASymbol.Create("a"),
+                ABox.Create(AInteger.Create(3)),
+                ABox.Create(AInteger.Create(2)),
+                ABox.Create(f),
+                ABox.Create(AInteger.Create(6)),
+                ABox.Create(g),
+                ASymbol.Create("b")
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00C5 `a, (3;(2;(f;);6);g;) , `b", scope);
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Rake"), TestMethod]
         public void RakeStrandDepth4()
         {
             AType expected = Helpers.BuildStrand(
@@ -203,6 +257,30 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
             );
 
             AType result = this.engine.Execute<AType>("in `a`b , f", scope);
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Rake"), TestMethod]
+        public void RakeSimpleArrayApl()
+        {
+            ScriptScope scope = this.engine.CreateScope();
+            AType f = this.engineApl.Execute<AType>("f \u00FB \u003C{+}", scope);
+
+            AType expected = AArray.Create(
+                ATypes.ABox,
+                ABox.Create(
+                    AArray.Create(
+                        ATypes.ASymbol,
+                        ASymbol.Create("a"),
+                        ASymbol.Create("b"),
+                        f
+                    )
+                )
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00C5 `a`b , f", scope);
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));

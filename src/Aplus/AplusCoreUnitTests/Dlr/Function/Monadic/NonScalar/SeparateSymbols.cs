@@ -27,6 +27,20 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("SeparateSymbols"), TestMethod]
+        public void SeparateSymbolsSymbolConstantApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.ASymbol,
+                ASymbol.Create(""),
+                ASymbol.Create("a")
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u002E `.a");
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("SeparateSymbols"), TestMethod]
         public void SeparateSymbolsSymbolConstantList()
         {
             AType expected = AArray.Create(

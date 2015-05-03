@@ -3,7 +3,7 @@ using System.Text;
 
 namespace AplusCore.Compiler.Grammar
 {
-    class StringProcessor
+    public class StringProcessor
     {
 
         /// <summary>
@@ -16,7 +16,7 @@ namespace AplusCore.Compiler.Grammar
             return number.Replace((char)0xA2, '-');
         }
 
-        internal static string ProcessEscapes(string text)
+        public static string ProcessEscapes(string text)
         {
             StringBuilder replacedString = new StringBuilder();
             char currentChar;

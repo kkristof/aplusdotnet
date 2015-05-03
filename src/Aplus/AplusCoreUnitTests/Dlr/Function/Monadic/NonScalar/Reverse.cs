@@ -22,6 +22,16 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
+        public void ReverseFloatApl()
+        {
+            AType expected = AFloat.Create(8.3);
+            AType result = this.engineApl.Execute<AType>("\u00F7 8.3");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
         public void ReverseIntegerVector()
         {
             AType expected = AArray.Create(
@@ -33,6 +43,22 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
                 AInteger.Create(3)
             );
             AType result = this.engine.Execute<AType>("rot 3 2 4 56 7");
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
+        public void ReverseIntegerVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(7),
+                AInteger.Create(56),
+                AInteger.Create(4),
+                AInteger.Create(2),
+                AInteger.Create(3)
+            );
+            AType result = this.engineApl.Execute<AType>("\u00F7 3 2 4 56 7");
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
         }
@@ -69,6 +95,21 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
+        public void ReverseCharacterConstantApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AChar,
+                AChar.Create('t'),
+                AChar.Create('s'),
+                AChar.Create('e'),
+                AChar.Create('t')
+            );
+            AType result = this.engineApl.Execute<AType>("\u00F7 'test'");
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
         public void ReverseBox()
         {
             AType expected = AArray.Create(
@@ -91,6 +132,28 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
+        public void ReverseBoxApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.ABox,
+                ABox.Create(AInteger.Create(23)),
+                ABox.Create(
+                    AArray.Create(
+                        ATypes.ABox,
+                        ABox.Create(AInteger.Create(2)),
+                        ABox.Create(AInteger.Create(5))
+                        )
+                ),
+                ABox.Create(AInteger.Create(3)),
+                ABox.Create(AInteger.Create(4))
+
+            );
+            AType result = this.engineApl.Execute<AType>("\u00F7 (4;3;(2;5);23)");
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
         public void ReverseSymbolConstantVector()
         {
             AType expected = AArray.Create(
@@ -100,6 +163,20 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
                 ASymbol.Create("s1")
             );
             AType result = this.engine.Execute<AType>("rot `s1`s2`s3");
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
+        public void ReverseSymbolConstantVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.ASymbol,
+                ASymbol.Create("s3"),
+                ASymbol.Create("s2"),
+                ASymbol.Create("s1")
+            );
+            AType result = this.engineApl.Execute<AType>("\u00F7 `s1`s2`s3");
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
         }
@@ -121,6 +198,27 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
                 )
             );
             AType result = this.engine.Execute<AType>("rot iota 2 2");
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Reverse"), TestMethod]
+        public void ReverseIntegerMatrixApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AArray.Create(
+                    ATypes.AInteger,
+                    AInteger.Create(2),
+                    AInteger.Create(3)
+                ),
+                AArray.Create(
+                    ATypes.AInteger,
+                    AInteger.Create(0),
+                    AInteger.Create(1)
+                )
+            );
+            AType result = this.engineApl.Execute<AType>("\u00F7 \u00C9 2 2");
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
         }

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 Compiler\\Grammar\\AplusParser.g 2015-05-03 13:19:58
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 Compiler\\Grammar\\AplusParser.g 2015-05-03 20:17:46
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1981,7 +1981,7 @@ public partial class AplusParser : Parser
                     	    	{
                     	        int LA15_2 = input.LA(2);
 
-                    	        if ( (((synpred28_AplusParser() && ( IsDyadicOperator(input.LT(1)) ))|| (synpred28_AplusParser() && ( IsMonadicOperator(input.LT(1)) )))) )
+                    	        if ( (((synpred28_AplusParser() && ( IsMonadicOperator(input.LT(1)) ))|| (synpred28_AplusParser() && ( IsDyadicOperator(input.LT(1)) )))) )
                     	        {
                     	            alt15 = 1;
                     	        }
@@ -1993,7 +1993,7 @@ public partial class AplusParser : Parser
                     	    	{
                     	        int LA15_3 = input.LA(2);
 
-                    	        if ( (((synpred28_AplusParser() && ( IsDyadicOperator(input.LT(1)) ))|| (synpred28_AplusParser() && ( IsMonadicOperator(input.LT(1)) )))) )
+                    	        if ( (((synpred28_AplusParser() && ( IsMonadicOperator(input.LT(1)) ))|| (synpred28_AplusParser() && ( IsDyadicOperator(input.LT(1)) )))) )
                     	        {
                     	            alt15 = 1;
                     	        }
@@ -2005,7 +2005,7 @@ public partial class AplusParser : Parser
                     	    	{
                     	        int LA15_4 = input.LA(2);
 
-                    	        if ( (((synpred28_AplusParser() && ( IsDyadicOperator(input.LT(1)) ))|| (synpred28_AplusParser() && ( IsMonadicOperator(input.LT(1)) )))) )
+                    	        if ( (((synpred28_AplusParser() && ( IsMonadicOperator(input.LT(1)) ))|| (synpred28_AplusParser() && ( IsDyadicOperator(input.LT(1)) )))) )
                     	        {
                     	            alt15 = 1;
                     	        }
@@ -10168,7 +10168,7 @@ public partial class AplusParser : Parser
                    	int index9_99 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( ((synpred15_AplusParser()|| (synpred15_AplusParser() && (  IsGlobalFunction(input.LT(1)) )))) ) { s = 1; }
+                   	if ( (((synpred15_AplusParser() && (  IsGlobalFunction(input.LT(1)) ))|| synpred15_AplusParser())) ) { s = 1; }
 
                    	else if ( (synpred16_AplusParser()) ) { s = 110; }
 
@@ -10183,7 +10183,7 @@ public partial class AplusParser : Parser
                    	int index9_100 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( ((synpred15_AplusParser()|| (synpred15_AplusParser() && (  IsGlobalFunction(input.LT(1)) )))) ) { s = 1; }
+                   	if ( (((synpred15_AplusParser() && (  IsGlobalFunction(input.LT(1)) ))|| synpred15_AplusParser())) ) { s = 1; }
 
                    	else if ( (synpred16_AplusParser()) ) { s = 110; }
 
@@ -10198,7 +10198,7 @@ public partial class AplusParser : Parser
                    	int index9_101 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( ((synpred15_AplusParser()|| (synpred15_AplusParser() && (  IsGlobalFunction(input.LT(1)) )))) ) { s = 1; }
+                   	if ( (((synpred15_AplusParser() && (  IsGlobalFunction(input.LT(1)) ))|| synpred15_AplusParser())) ) { s = 1; }
 
                    	else if ( (synpred16_AplusParser()) ) { s = 110; }
 

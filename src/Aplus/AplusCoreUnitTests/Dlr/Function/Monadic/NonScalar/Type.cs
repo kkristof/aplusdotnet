@@ -23,6 +23,16 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Type"), TestMethod]
+        public void IntegerTypeApl()
+        {
+            AType expected = ASymbol.Create("int");
+            AType result = this.engineApl.Execute<AType>("\u00A91");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Type"), TestMethod]
         public void IntegerTypeUni()
         {
             AType expected = ASymbol.Create("int");

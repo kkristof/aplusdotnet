@@ -28,6 +28,21 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory(""), TestMethod]
         [ExpectedException(typeof(Error.Signal))]
+        public void SymbolSignalApl()
+        {
+            try
+            {
+                this.engineApl.Execute<AType>("\u00D9 `sym");
+            }
+            catch (Error.Signal signal)
+            {
+                Assert.AreEqual<string>("sym", signal.Message, "Incorrect message inside the error");
+                throw;
+            }
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory(""), TestMethod]
+        [ExpectedException(typeof(Error.Signal))]
         public void SymbolSignalUni()
         {
             try

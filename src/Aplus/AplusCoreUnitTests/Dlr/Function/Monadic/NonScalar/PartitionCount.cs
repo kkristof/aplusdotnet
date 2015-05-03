@@ -209,7 +209,7 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
 		
 		[TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
         [ExpectedException(typeof(Error.Rank))]
-        public void PartitionCountRankError()
+        public void PartitionCountRankErrorApl()
         {
             AType result = this.engineApl.Execute<AType>("\u00DA \u00C9 2 3");
         }
