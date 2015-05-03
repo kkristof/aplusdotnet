@@ -19,6 +19,14 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Null"), TestMethod]
+        public void NullApl()
+        {
+            AType result = this.engineApl.Execute<AType>("\u00DD 1 2 3");
+
+            Assert.IsTrue(result.Type == ATypes.ANull, "Not 'null' type returned");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Null"), TestMethod]
         public void NullUni()
         {
             AType result = this.engineUni.Execute<AType>("A.< 1 2 3");

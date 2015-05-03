@@ -25,6 +25,21 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
             Assert.AreEqual(expected, result);
         }
+		
+		[TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
+        public void PartitionCountIntegerList1Apl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(4),
+                AInteger.Create(2)
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00DA 1 0 0 0 1 0");
+
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+            Assert.AreEqual(expected, result);
+        }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
         public void PartitionCountIntegerList1Uni()
@@ -71,6 +86,20 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
             Assert.AreEqual(expected, result);
         }
+		
+		[TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
+        public void PartitionCountOneElementVectorApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(1)
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00DA 1 \u00D2 4");
+
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+            Assert.AreEqual(expected, result);
+        }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
         public void PartitionCountScalar()
@@ -87,10 +116,34 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
+        public void PartitionCountScalarApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(1)
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00DA 7");
+
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
         public void PartitionCountNull()
         {
             AType expected = Utils.ANull();
             AType result = this.engine.Execute<AType>("bag ()");
+
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+            Assert.AreEqual(expected, result);
+        }
+		
+		[TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
+        public void PartitionCountNullApl()
+        {
+            AType expected = Utils.ANull();
+            AType result = this.engineApl.Execute<AType>("\u00DA ()");
 
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
             Assert.AreEqual(expected, result);
@@ -139,12 +192,26 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         {
             AType result = this.engine.Execute<AType>("bag 0 0 0 0 1 1 0 1");
         }
+		
+		[TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
+        [ExpectedException(typeof(Error.Domain))]
+        public void PartitionCountDomainErrorApl()
+        {
+            AType result = this.engineApl.Execute<AType>("\u00DA 0 0 0 0 1 1 0 1");
+        }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
         [ExpectedException(typeof(Error.Rank))]
         public void PartitionCountRankError()
         {
             AType result = this.engine.Execute<AType>("bag iota 2 3");
+        }
+		
+		[TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]
+        [ExpectedException(typeof(Error.Rank))]
+        public void PartitionCountRankError()
+        {
+            AType result = this.engineApl.Execute<AType>("\u00DA \u00C9 2 3");
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("PartitionCount"), TestMethod]

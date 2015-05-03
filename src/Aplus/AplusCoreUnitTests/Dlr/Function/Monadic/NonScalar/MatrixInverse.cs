@@ -22,10 +22,28 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        public void Rank0TestApl()
+        {
+            AType expected = AFloat.Create(0.5);
+            AType result = this.engineApl.Execute<AType>("\u00AD 2");
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
         public void Rank1Test()
         {
             AType expected = AArray.Create(ATypes.AFloat, AFloat.Create(0.125), AFloat.Create(0.125), AFloat.Create(0.125), AFloat.Create(0.125));
             AType result = this.engine.Execute<AType>("mdiv 2 2 2 2");
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        public void Rank1TestApl()
+        {
+            AType expected = AArray.Create(ATypes.AFloat, AFloat.Create(0.125), AFloat.Create(0.125), AFloat.Create(0.125), AFloat.Create(0.125));
+            AType result = this.engineApl.Execute<AType>("\u00AD 2 2 2 2");
 
             Assert.AreEqual(expected, result);
         }
@@ -38,6 +56,18 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
                                            AArray.Create(ATypes.AFloat, AFloat.Create(-0.5), AFloat.Create(1))
                                            );
             AType result = this.engine.Execute<AType>("mdiv 2 2 rho 2 2 1 2");
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        public void Rank2TestApl()
+        {
+            AType expected = AArray.Create(ATypes.AFloat,
+                                           AArray.Create(ATypes.AFloat, AFloat.Create(1), AFloat.Create(-1)),
+                                           AArray.Create(ATypes.AFloat, AFloat.Create(-0.5), AFloat.Create(1))
+                                           );
+            AType result = this.engineApl.Execute<AType>("\u00AD 2 2 \u00D2 2 2 1 2");
 
             Assert.AreEqual(expected, result);
         }
@@ -60,6 +90,27 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
                 }
             }
             
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        public void PseudoInverseTestApl()
+        {
+            AType expected = AArray.Create(ATypes.AFloat,
+                                           AArray.Create(ATypes.AFloat, AFloat.Create(-1.3333), AFloat.Create(-0.3333), AFloat.Create(0.6667)),
+                                           AArray.Create(ATypes.AFloat, AFloat.Create(1.0833), AFloat.Create(0.3333), AFloat.Create(-0.4167))
+                                           );
+
+            AType result = this.engineApl.Execute<AType>("\u00AD 3 2 \u00D2 1 2 3 4 5 6");
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    result[i][j] = AFloat.Create(Math.Round(result[i][j].asFloat, 4));
+                }
+            }
+
             Assert.AreEqual(expected, result);
         }
 
@@ -96,6 +147,13 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        [ExpectedException(typeof(Error.Type))]
+        public void WrongTypeExeptionApl()
+        {
+            this.engineApl.Execute<AType>("\u00AD `a");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
         [ExpectedException(typeof(Error.Domain))]
         public void ZeroVector()
         {
@@ -103,10 +161,24 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        [ExpectedException(typeof(Error.Domain))]
+        public void ZeroVectorApl()
+        {
+            this.engineApl.Execute<AType>("\u00AD 0 0 0 0");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
         [ExpectedException(typeof(Error.Rank))]
         public void WrongRankExeption()
         {
             this.engine.Execute<AType>("mdiv 3 3 3 rho 1");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        [ExpectedException(typeof(Error.Rank))]
+        public void WrongRankExeptionApl()
+        {
+            this.engineApl.Execute<AType>("\u00AD 3 3 3 \u00D2 1");
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
@@ -118,6 +190,13 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
         [ExpectedException(typeof(Error.Domain))]
+        public void MoreRowsThanColumnsMatrixApl()
+        {
+            this.engineApl.Execute<AType>("\u00AD \u00C9 2 3");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        [ExpectedException(typeof(Error.Domain))]
         public void SingularCase()
         {
             this.engine.Execute<AType>("mdiv 2 2 rho 1");
@@ -125,9 +204,23 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
         [ExpectedException(typeof(Error.Domain))]
+        public void SingularCaseApl()
+        {
+            this.engineApl.Execute<AType>("\u00AD 2 2 \u00D2 1");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        [ExpectedException(typeof(Error.Domain))]
         public void SingularNotSquareMatrixCase1()
         {
             this.engine.Execute<AType>("mdiv 5 4 rho 1 0 0 0 0 0 0 4 0 3 0 0 0 0 0 0 2 0 0 0");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]
+        [ExpectedException(typeof(Error.Domain))]
+        public void SingularNotSquareMatrixCase1Apl()
+        {
+            this.engineApl.Execute<AType>("\u00AD 5 4 \u00D2 1 0 0 0 0 0 0 4 0 3 0 0 0 0 0 0 2 0 0 0");
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("MatrixInverse"), TestMethod]

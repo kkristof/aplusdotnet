@@ -23,6 +23,17 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
+        public void PackCharacterConstant1Apl()
+        {
+            AType expected = ASymbol.Create("a");
+
+            AType result = this.engineApl.Execute<AType>("\u00C2 'a'");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
         public void PackCharacterConstant1Uni()
         {
             AType expected = ASymbol.Create("a");
@@ -50,6 +61,17 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
             AType expected = ASymbol.Create("      a");
 
             AType result = this.engine.Execute<AType>("pack '      a      '");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
+        public void PackCharacterConstantVector1Apl()
+        {
+            AType expected = ASymbol.Create("      a");
+
+            AType result = this.engineApl.Execute<AType>("\u00C2 '      a      '");
 
             Assert.AreEqual(expected, result);
             Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
@@ -103,6 +125,20 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
+        public void PackCharacterMatrixWithFrameApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.ASymbol,
+                AArray.Create(ATypes.ASymbol, ASymbol.Create("abc"), ASymbol.Create("  d"), ASymbol.Create("efa")),
+                AArray.Create(ATypes.ASymbol, ASymbol.Create("bc"), ASymbol.Create(" de"), ASymbol.Create("fab"))
+            );
+            AType result = this.engineApl.Execute<AType>("\u00C2 2 3 3 \u00D2 'abc  def'");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
         public void PackCharacterMatrix()
         {
             AType expected = AArray.Create(
@@ -120,10 +156,34 @@ namespace AplusCoreUnitTests.Dlr.Function.Monadic.NonScalar
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
+        public void PackCharacterMatrixApl()
+        {
+            AType expected = AArray.Create(
+                ATypes.ASymbol,
+                ASymbol.Create("a"),
+                ASymbol.Create("abc"),
+                ASymbol.Create(""),
+                ASymbol.Create("ra")
+            );
+
+            AType result = this.engineApl.Execute<AType>("\u00C2 4 3 \u00D2 'a  abc   r'");
+
+            Assert.AreEqual(expected, result);
+            Assert.AreEqual(InfoResult.OK, result.CompareInfos(expected));
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
         [ExpectedException(typeof(Error.Type))]
         public void PackTypeError1()
         {
             AType result = this.engine.Execute<AType>("pack 3");
+        }
+
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
+        [ExpectedException(typeof(Error.Type))]
+        public void PackTypeError1Apl()
+        {
+            AType result = this.engineApl.Execute<AType>("\u00C2 3");
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Pack"), TestMethod]
