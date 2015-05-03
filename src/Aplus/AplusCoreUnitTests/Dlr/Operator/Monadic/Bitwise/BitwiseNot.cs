@@ -28,6 +28,11 @@ namespace AplusCoreUnitTests.Dlr.Operator.Monadic.Bitwise
 
             Assert.AreEqual(expected, resultUni);
             Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
+
+            AType resultApl = this.engineApl.Execute<AType>("\u007E\u00AE 1 2 3");
+
+            Assert.AreEqual(expected, resultApl);
+            Assert.AreEqual(InfoResult.OK, resultApl.CompareInfos(expected));
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("Bitwise Not"), TestMethod]

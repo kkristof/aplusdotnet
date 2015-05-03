@@ -27,8 +27,11 @@ namespace AplusCoreUnitTests.Dlr.ControlFlow
 
             this.engineUni.Execute<AType>("a:=0", scope);
             AType resultUni = this.engineUni.Execute<AType>("10 do { a:=a + 1 }", scope);
-
             Assert.AreEqual<AType>(expected, resultUni, "Incorrect result returned by Do");
+
+            this.engine.Execute<AType>("a:=0", scope);
+            AType resultApl = this.engineApl.Execute<AType>("10 do { a\u00FBa + 1 }", scope);
+            Assert.AreEqual<AType>(expected, resultApl, "Incorrect result produced");
         }
 
         [TestCategory("DLR"), TestCategory("ControlFlow"), TestCategory("DyadicDo"), TestMethod]

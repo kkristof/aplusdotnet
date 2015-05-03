@@ -27,8 +27,15 @@ namespace AplusCoreUnitTests.Dlr.ControlFlow
             Assert.AreEqual<AType>(expected, scope.GetVariable<AType>(".i"),
                 "Variable not created outside the block");
 
-            AType resultUni = this.engineUni.Execute<AType>("while a { a:=0; i:=14 }", scope);
-            Assert.AreEqual<AType>(expected, result, "Returned value is invalid");
+            ScriptScope scopeUni = this.engine.CreateScope();
+            this.engine.Execute<AType>("a:=1", scopeUni);
+            AType resultUni = this.engineUni.Execute<AType>("while a { a:=0; i:=14 }", scopeUni);
+            Assert.AreEqual<AType>(expected, resultUni, "Returned value is invalid");
+
+            ScriptScope scopeApl = this.engine.CreateScope();
+            this.engine.Execute<AType>("a:=1", scopeApl);
+            AType resultApl = this.engineApl.Execute<AType>("while a { a\u00FB0; i\u00FB14 }", scopeApl);
+            Assert.AreEqual<AType>(expected, resultApl, "Returned value is invalid");
         }
 
         [TestCategory("DLR"), TestCategory("ControlFlow"), TestCategory("While"), TestMethod]

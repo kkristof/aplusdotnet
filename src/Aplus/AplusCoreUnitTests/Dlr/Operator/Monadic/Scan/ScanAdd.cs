@@ -33,11 +33,37 @@ namespace AplusCoreUnitTests.Dlr.Operator.Monadic.Scan
 
             Assert.AreEqual(expected, resultUni);
             Assert.AreEqual(InfoResult.OK, resultUni.CompareInfos(expected));
+        }
 
-            AType resultApl = this.engineApl.Execute<AType>("+\\ 1 3 -5 2 6");
+        [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ScanAdd"), TestMethod]
+        public void ScanAddIntegerVector1Apl()
+        {
+            AType expected1 = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(1),
+                AInteger.Create(4),
+                AInteger.Create(9),
+                AInteger.Create(11),
+                AInteger.Create(17)
+            );
+            AType resultApl1 = this.engineApl.Execute<AType>(@"+\ 1 3 5 2 6");
 
-            Assert.AreEqual(expected, resultApl);
-            Assert.AreEqual(InfoResult.OK, resultApl.CompareInfos(expected));
+            Assert.AreEqual(expected1, resultApl1);
+            Assert.AreEqual(InfoResult.OK, resultApl1.CompareInfos(expected1));
+
+            AType expected2 = AArray.Create(
+                ATypes.AInteger,
+                AInteger.Create(1),
+                AInteger.Create(4),
+                AInteger.Create(-1),
+                AInteger.Create(1),
+                AInteger.Create(7)
+            );
+
+            AType resultApl2 = this.engineApl.Execute<AType>("+\\ 1 3 \u00A25 2 6");
+
+            Assert.AreEqual(expected2, resultApl2);
+            Assert.AreEqual(InfoResult.OK, resultApl2.CompareInfos(expected2));
         }
 
         [TestCategory("DLR"), TestCategory("Monadic"), TestCategory("ScanAdd"), TestMethod]
